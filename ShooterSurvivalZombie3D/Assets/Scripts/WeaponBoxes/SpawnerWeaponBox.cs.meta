@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fdc0ea052c7dd954bb194602a1d8fcfa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _weaponBoxWave1: {fileID: 6266527212460190159, guid: 61a944a9f54de8545be514b471cbe39b, type: 3}
+  - _weaponBoxWave2: {instanceID: 0}
+  - _weaponBoxWave3: {instanceID: 0}
+  - _weaponBoxWave4: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

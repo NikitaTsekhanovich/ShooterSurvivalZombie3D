@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 58adc99f06d946749b73fcdb565d9ffc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - zombieGirl: {fileID: 1737715673, guid: 51405f408e19031409cef3d081beee4a, type: 3}
+  - zombieParasite: {fileID: 4044855162402595330, guid: cf2420c3bf6cc2d4a9c8e7849c04d53a, type: 3}
+  - zombieWarrior: {fileID: 4970414313697993196, guid: 7a6eac3170d9eee438a6986b6c6c5b77, type: 3}
+  - zombieSkeletonBoss: {fileID: 1471753462425479214, guid: 827b3641aff0c474bba3dce25eff8005, type: 3}
+  - spawnPointFirst: {fileID: 1278983674681046966, guid: 0a86d5d84b2fe114d9d38ee367f22b7f, type: 3}
+  - spawnPointSecond: {fileID: 7007065477955158371, guid: 6f281ff6779d70343a32638c1603cee4, type: 3}
+  - spawnPointThird: {fileID: 5442907647032250444, guid: fbad60d618a7f62478bbc260b4cf7d9c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
