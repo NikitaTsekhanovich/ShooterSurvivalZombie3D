@@ -3,6 +3,7 @@ using Animations;
 using Player.InventoryEntities.AmmoWeapons;
 using Player.InventoryEntities.Weapons;
 using Player.MainPlayer;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -158,9 +159,9 @@ namespace Player.InventoryEntities
             return _itemInHand == null ? null : _itemInHand;
         }
         
-        // public GameObject GetItemInHand()
-        // {
-        //     return _itemInHand == null ? null : _itemInHand;
-        // }
+        public static ItemType GetTypeItemInHand()
+        {
+            return _itemInHand == null ? ItemType.Void : _itemInHand.GetComponent<Item>().item.ItemType;
+        }
     }
 }

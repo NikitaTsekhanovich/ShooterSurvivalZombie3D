@@ -1,4 +1,7 @@
+using System;
+using JetBrains.Annotations;
 using Player.InventoryEntities;
+using Player.InventoryEntities.Weapons;
 using UnityEngine;
 
 namespace Player.MainPlayer
@@ -25,15 +28,22 @@ namespace Player.MainPlayer
             animator.SetBool("IsRun", isRun);
         }
         
-        internal static void PlayerHoldItem(Animator animator, ItemType? typeItemInHand)
+        internal static void PlayerHoldItem([NotNull] Weapon weapon, Animator animator)
         {
-            if (typeItemInHand == ItemType.AutomaticWeapon ||
-                typeItemInHand == ItemType.NotAutomaticWeapon)
+            if (weapon != null)
             {
-                PlayerHoldLongWeapon(true, animator);
-            }
+                if (weapon.ItemType == ItemType.AutomaticWeapon ||
+                    weapon.ItemType == ItemType.NotAutomaticWeapon)
+                {
+                    PlayerHoldLongWeapon(true, animator);
+                }
 
-            if (typeItemInHand == null || typeItemInHand == ItemType.Flashlight)
+                if (weapon.ItemType == ItemType.Flashlight)
+                {
+                    PlayerHoldLongWeapon(false, animator);
+                }
+            }
+            else
             {
                 PlayerHoldLongWeapon(false, animator);
             }

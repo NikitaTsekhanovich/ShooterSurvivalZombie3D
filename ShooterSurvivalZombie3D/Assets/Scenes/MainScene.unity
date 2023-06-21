@@ -4596,8 +4596,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 855069405}
   _movement: {fileID: 855069409}
-  _actionWeapon: {fileID: 855069410}
-  _inventory: {fileID: 1741816517}
 --- !u!95 &855069405
 Animator:
   serializedVersion: 3
@@ -4674,18 +4672,6 @@ MonoBehaviour:
   _interactionGround: {fileID: 855069412}
   _speed: 1.5
   _acceleration: 2.5
---- !u!114 &855069410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 855069402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 402bda5ed2d04574eb22c37a6bfa8259, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &855069411
 BoxCollider:
   m_ObjectHideFlags: 0

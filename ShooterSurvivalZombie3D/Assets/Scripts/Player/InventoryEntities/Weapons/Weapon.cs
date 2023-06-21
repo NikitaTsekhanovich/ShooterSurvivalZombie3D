@@ -16,6 +16,9 @@ namespace Player.InventoryEntities.Weapons
         [SerializeField] private float shotDelay;
         [SerializeField] private AudioSource shotSound;
         [SerializeField] private AudioSource reloadSound;
+        private Camera _camera;
+        private float _shotInterval;
+        public ItemType ItemType { get; private set; }
 
         public int ExtraAmmo
         {
@@ -31,47 +34,70 @@ namespace Player.InventoryEntities.Weapons
 
         public float Damage => damage;
 
-        public float ShotDelay => shotDelay;
-
-        public void ShootWeapon(Camera mainCamera)
+        private void Start()
         {
-            if (NumberRoundsMagazine > 0)
+            _camera = Camera.main;
+            ItemType = gameObject.GetComponent<Item>().item.ItemType;
+        }
+
+        public void ShootAutomaticWeapon()
+        {
+            if (ItemType == ItemType.AutomaticWeapon)
             {
-                shotSound.Play();
-                NumberRoundsMagazine -= 1;
-                SpawnBullet(mainCamera);
+                _shotInterval += Time.deltaTime;
+
+                if (_shotInterval >= shotDelay)
+                {
+                    if (NumberRoundsMagazine > 0)
+                    {
+                        shotSound.Play();
+                        NumberRoundsMagazine -= 1;
+                        SpawnBullet();
+                    }
+                    _shotInterval = 0;
+                }
+            }
+        }
+        
+        public void ShootNotAutomaticWeapon()
+        {
+            if (ItemType == ItemType.NotAutomaticWeapon)
+            {
+                if (NumberRoundsMagazine > 0)
+                {
+                    shotSound.Play();
+                    NumberRoundsMagazine -= 1;
+                    SpawnBullet();
+                }
             }
         }
 
-        public bool IsReload()
+        public bool Reload()
         {
             if (ExtraAmmo > 0 && NumberRoundsMagazine != sizeMagazine)
             {
                 reloadSound.Play();
-                Reload();
+                
+                var ammoMagazine = sizeMagazine - NumberRoundsMagazine;
+                if (ExtraAmmo - ammoMagazine > 0)
+                {
+                    ExtraAmmo -= ammoMagazine;
+                    NumberRoundsMagazine += ammoMagazine;
+                }
+                else
+                {
+                    NumberRoundsMagazine += ExtraAmmo;
+                    ExtraAmmo = 0;
+                }
                 return true;
             }
+
             return false;
         }
 
-        private void Reload()
+        private void SpawnBullet()
         {
-            var ammoMagazine = sizeMagazine - NumberRoundsMagazine;
-            if (ExtraAmmo - ammoMagazine > 0)
-            {
-                ExtraAmmo -= ammoMagazine;
-                NumberRoundsMagazine += ammoMagazine;
-            }
-            else
-            {
-                NumberRoundsMagazine += ExtraAmmo;
-                ExtraAmmo = 0;
-            }
-        }
-
-        private void SpawnBullet(Camera mainCamera)
-        {
-            var ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+            var ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
             var targetPoint = ray.GetPoint(75);
 
