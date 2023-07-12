@@ -20,6 +20,11 @@ namespace Cameras
 
         private void Update()
         {
+            CameraMovement();
+        }
+
+        private void CameraMovement()
+        {
             _mouseX = Input.GetAxis("Mouse X") * _sensitivtyMouse * Time.deltaTime;
             _mouseY = Input.GetAxis("Mouse Y") * _sensitivtyMouse * Time.deltaTime;
             
