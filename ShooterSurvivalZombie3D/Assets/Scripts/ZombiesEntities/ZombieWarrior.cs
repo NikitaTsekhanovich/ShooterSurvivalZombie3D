@@ -20,24 +20,6 @@ namespace ZombiesEntities
                 isAttack = true;
             }
         }
-        
-        protected override void Attack()
-        {
-            if (isAttack)
-            {
-                transform.LookAt(playerTransform);
-
-                if (distance <= attackRange)
-                {
-                    animator.SetBool("isAttacking", true);
-                }
-                else
-                {
-                    animator.SetBool("isAttacking", false);
-                    isAttack = false;
-                }
-            }
-        }
     }
     
 }

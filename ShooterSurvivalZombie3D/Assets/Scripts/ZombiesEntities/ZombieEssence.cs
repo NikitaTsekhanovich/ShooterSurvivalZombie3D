@@ -40,8 +40,23 @@ namespace ZombiesEntities
 
         protected abstract void Move();
 
-        protected abstract void Attack();
-        
+        private void Attack()
+        {
+            if (isAttack)
+            {
+                transform.LookAt(playerTransform);
+
+                if (distance <= attackRange)
+                {
+                    animator.SetBool("isAttacking", true);
+                }
+                else
+                {
+                    animator.SetBool("isAttacking", false);
+                    isAttack = false;
+                }
+            }
+        }
 
         public void ApplyDamage(float damagePlayer)
         {
