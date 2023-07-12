@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 namespace Menu.GameSettings
 {
-    public class MusicVolume : MonoBehaviour
+    public class SettingsMusicVolume : MonoBehaviour
     {
-        public AudioMixerGroup _mixer;
         [SerializeField] private Slider _musicSlider;
+        public AudioMixerGroup _mixer;
 
         private void Start()
         {
