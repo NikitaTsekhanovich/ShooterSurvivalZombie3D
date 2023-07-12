@@ -1,5 +1,6 @@
 using Managers;
 using Player.MainPlayer;
+using Spawners;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,12 +13,12 @@ namespace ZombiesEntities
         [SerializeField] protected float attackRange;
         [SerializeField] protected Animator animator;
         [SerializeField] protected AudioSource screamZombieSound;
-        protected float _distance;
-        protected NavMeshAgent _agent;
-        protected bool _isAttack;
+        protected float distance;
+        protected NavMeshAgent agent;
+        protected bool isAttack;
+        protected Transform playerTransform;
         private bool _isDied;
         private float _timer;
-        protected Transform playerTransform;
         
         public int Damage => damage;
         
@@ -25,7 +26,7 @@ namespace ZombiesEntities
         {
             playerTransform = Player.MainPlayer.Player.PlayerSingleton.transform;
             animator = GetComponent<Animator>();
-            _agent = GetComponent<NavMeshAgent>();
+            agent = GetComponent<NavMeshAgent>();
             screamZombieSound.Play();
         }
 
@@ -54,18 +55,18 @@ namespace ZombiesEntities
         {
             if (_isDied)
             {
-                _agent.transform.position = new Vector3(
-                    _agent.transform.position.x, 
-                    _agent.transform.position.y - 0.5f, 
-                    _agent.transform.position.z);
+                agent.transform.position = new Vector3(
+                    agent.transform.position.x, 
+                    agent.transform.position.y - 0.5f, 
+                    agent.transform.position.z);
                 animator.SetBool("isDied", true);
-                _agent.speed = 0;
+                agent.speed = 0;
                 _timer += Time.deltaTime;
                 if (_timer >= 5)
                 {
                     Destroy(gameObject);
-                    WaveLoadManager.AmountZombies -= 1;
-                    ZombieAliveManager.SendZombieAlive(WaveLoadManager.AmountZombies);
+                    SpawnerZombie.ReduceAmountZombies();
+                    ZombieAliveManager.SendZombieAlive(SpawnerZombie.AmountZombies);
                 }
             }
         }
