@@ -6,35 +6,36 @@ namespace Player.InventoryEntities
 {
     public class InventorySlot : MonoBehaviour
     {
-        public ItemScriptableObject item;
-        public bool isEmpty;
-        public GameObject iconGO;
-        public TMP_Text NumberRounds;
-        public TMP_Text NumberMagazine;
-        [SerializeField] public Animator animator;
+        [SerializeField] private Animator _animator;
 
+        public ItemScriptableObject Item { get; set; }
+        public bool IsEmpty { get; set; }
+        public GameObject IconGo { get; private set; }
+        public TMP_Text NumberRounds { get; private set; }
+        public TMP_Text NumberMagazine { get; private set; }
+        public Animator Animator => _animator;
+
+        private void Start()
+        {
+            _animator = GetComponent<Animator>();
+        }
 
         public InventorySlot()
         {
-            isEmpty = true;
+            IsEmpty = true;
         }
 
         private void Awake()
         {
-            iconGO = transform.GetChild(0).gameObject;
+            IconGo = transform.GetChild(0).gameObject;
             NumberRounds = transform.GetChild(1).GetComponent<TMP_Text>();
             NumberMagazine = transform.GetChild(2).GetComponent<TMP_Text>();
         }
 
         public void SetIcon(Sprite icon)
         {
-            iconGO.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-            iconGO.GetComponent<Image>().sprite = icon;
-        }
-
-        private void Start()
-        {
-            animator = GetComponent<Animator>();
+            IconGo.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            IconGo.GetComponent<Image>().sprite = icon;
         }
     }
 }

@@ -7,12 +7,12 @@ namespace Player.InventoryEntities.Animation
     {
         public static void DoAnimationSlots(List<InventorySlot> slots, int index)
         {
-            slots[index].animator.SetBool("FlashSlot", true);
+            slots[index].Animator.SetBool("FlashSlot", true);
             for (var i = 0; i < slots.Count; i++)
             {
                 if (index != i)
                 {
-                    slots[i].animator.SetBool("FlashSlot", false);
+                    slots[i].Animator.SetBool("FlashSlot", false);
                 }
             }
         }

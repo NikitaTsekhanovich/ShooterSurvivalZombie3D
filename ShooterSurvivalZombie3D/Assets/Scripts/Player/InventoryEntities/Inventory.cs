@@ -3,7 +3,6 @@ using Player.InventoryEntities.AmmoWeapons;
 using Player.InventoryEntities.Animation;
 using Player.InventoryEntities.Weapons;
 using Player.MainPlayer;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,7 +27,11 @@ namespace Player.InventoryEntities
         private void Start()
         {
             _mainCamera = Camera.main;
-            
+            CreateSlots();
+        }
+
+        private void CreateSlots()
+        {
             for (var i = 0; i < inventoryPanel.childCount; i++)
             {
                 if (inventoryPanel.GetChild(i).GetComponent<InventorySlot>() != null)
@@ -45,13 +48,109 @@ namespace Player.InventoryEntities
             ShowWeaponAmmo();
             _index = GetIndexSlot();
         }
+        
+        private void UpItem()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                
+                if (Physics.Raycast(ray, out hit, _reachDistance))
+                {
+                    if (hit.collider.gameObject.GetComponent<Item>() != null)
+                    {
+                        AddItemSlot(hit.collider.gameObject.GetComponent<Item>().item, 
+                            hit.collider.gameObject);
+                    }
+                }
+            }
+        }
+        
+        private void AddItemSlot(ItemScriptableObject item, GameObject prefab)
+        {
+            AddNewItemSlot(item, prefab);
+            AddAmmoSlot(item, prefab);
+        }
 
+        private void AddAmmoSlot(ItemScriptableObject item, GameObject prefab)
+        {
+            if (item.ItemType == ItemType.Ammo)
+            {
+                AddAmmoWeapon(prefab);
+                SumAmmo(item, prefab);
+                AddNewAmmoSlot(item, prefab);
+            }
+        }
+
+        private void SumAmmo(ItemScriptableObject item, GameObject prefab)
+        {
+            if (!slots[_index].IsEmpty && slots[_index].Item == item)
+            {
+                _itemInHand.GetComponent<Ammo>().NumberAmmo += prefab.GetComponent<Ammo>().NumberAmmo;
+                slots[_index].NumberRounds.text = _itemInHand.GetComponent<Ammo>().NumberAmmo.ToString();
+                Destroy(prefab);
+            }
+        }
+
+        private void AddNewAmmoSlot(ItemScriptableObject item, GameObject prefab)
+        {
+            if (slots[_index].IsEmpty)
+            {
+                slots[_index].Item = item;
+                slots[_index].IsEmpty = false;
+                slots[_index].SetIcon(item.Icon);
+                ItemInHand.HoldItemHand(prefab, _index);
+            }
+        }
+
+        private void AddAmmoWeapon(GameObject prefab)
+        {
+            if (!slots[_index].IsEmpty &&
+                (_itemInHand.GetComponent<Item>().item.ItemType == ItemType.NotAutomaticWeapon ||
+                 _itemInHand.GetComponent<Item>().item.ItemType == ItemType.AutomaticWeapon))
+            {
+                _itemInHand.GetComponent<Weapon>().ExtraAmmo += prefab.GetComponent<Ammo>().NumberAmmo;
+                Destroy(prefab);
+            }
+        }
+
+        private void AddNewItemSlot(ItemScriptableObject item, GameObject prefab)
+        {
+            if (item.ItemType == ItemType.Flashlight ||
+                item.ItemType == ItemType.AutomaticWeapon ||
+                item.ItemType == ItemType.NotAutomaticWeapon)
+            {
+                if (slots[_index].IsEmpty)
+                {
+                    slots[_index].Item = item;
+                    slots[_index].IsEmpty = false;
+                    slots[_index].SetIcon(item.Icon);
+                    ItemInHand.HoldItemHand(prefab, _index);
+                }
+            }
+        }
+
+        private void DropItem()
+        {
+            if (Input.GetKeyDown(KeyCode.Q) && slots[_index].Item != null)
+            {
+                slots[_index].IsEmpty = true;
+                slots[_index].Item = null;
+                slots[_index].IconGo.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+                slots[_index].IconGo.GetComponent<Image>().sprite = null;
+                slots[_index].NumberRounds.text = "";
+                slots[_index].NumberMagazine.text = "";
+                ItemInHand.DropItemHand(_index, _itemInHand);
+            }
+        }
+        
         private void ShowWeaponAmmo()
         {
-            if (_itemInHand != null && slots[_index].item != null)
+            if (_itemInHand != null && slots[_index].Item != null)
             {
-                if (slots[_index].item.ItemType == ItemType.AutomaticWeapon ||
-                    slots[_index].item.ItemType == ItemType.NotAutomaticWeapon)
+                if (slots[_index].Item.ItemType == ItemType.AutomaticWeapon ||
+                    slots[_index].Item.ItemType == ItemType.NotAutomaticWeapon)
                 {
                     slots[_index].NumberRounds.text = _itemInHand.GetComponent<Weapon>()
                         .NumberRoundsMagazine.ToString();
@@ -59,7 +158,7 @@ namespace Player.InventoryEntities
                         .ExtraAmmo.ToString();
                 }
 
-                if (slots[_index].item.ItemType == ItemType.Ammo)
+                if (slots[_index].Item.ItemType == ItemType.Ammo)
                 {
                     slots[_index].NumberRounds.text = _itemInHand.GetComponent<Ammo>()
                         .NumberAmmo.ToString();
@@ -67,78 +166,6 @@ namespace Player.InventoryEntities
             }
         }
 
-        private void DropItem()
-        {
-            if (Input.GetKeyDown(KeyCode.Q) && slots[_index].item != null)
-            {
-                slots[_index].isEmpty = true;
-                slots[_index].item = null;
-                slots[_index].iconGO.GetComponent<Image>().color = new Color(1, 1, 1, 0);
-                slots[_index].iconGO.GetComponent<Image>().sprite = null;
-                slots[_index].NumberRounds.text = "";
-                slots[_index].NumberMagazine.text = "";
-                ItemInHand.DropItemHand(_index, _itemInHand);
-            }
-        }
-
-        private void UpItem()
-        {
-            var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                if (Physics.Raycast(ray, out hit, _reachDistance))
-                {
-                    if (hit.collider.gameObject.GetComponent<Item>() != null)
-                    {
-                        AddItem(hit.collider.gameObject.GetComponent<Item>().item, 
-                            hit.collider.gameObject);
-                    }
-                }
-            }
-        }
-
-        private void AddItem(ItemScriptableObject item, GameObject prefab)
-        {
-            if (item.ItemType == ItemType.Flashlight ||
-                item.ItemType == ItemType.AutomaticWeapon ||
-                item.ItemType == ItemType.NotAutomaticWeapon)
-            {
-                if (slots[_index].isEmpty)
-                { 
-                    slots[_index].item = item;
-                    slots[_index].isEmpty = false;
-                    slots[_index].SetIcon(item.Icon);
-                    ItemInHand.HoldItemHand(prefab, _index);
-                }
-            }
-
-            if (item.ItemType == ItemType.Ammo)
-            {
-                if (!slots[_index].isEmpty && 
-                    (_itemInHand.GetComponent<Item>().item.ItemType == ItemType.NotAutomaticWeapon ||
-                    _itemInHand.GetComponent<Item>().item.ItemType == ItemType.AutomaticWeapon))
-                {
-                    _itemInHand.GetComponent<Weapon>().ExtraAmmo += prefab.GetComponent<Ammo>().NumberAmmo;
-                    Destroy(prefab);
-                }
-                if (!slots[_index].isEmpty && slots[_index].item == item)
-                {
-                    _itemInHand.GetComponent<Ammo>().NumberAmmo += prefab.GetComponent<Ammo>().NumberAmmo;
-                    slots[_index].NumberRounds.text = _itemInHand.GetComponent<Ammo>().NumberAmmo.ToString();
-                    Destroy(prefab);
-                }
-                if (slots[_index].isEmpty)
-                { 
-                    slots[_index].item = item;
-                    slots[_index].isEmpty = false;
-                    slots[_index].SetIcon(item.Icon);
-                    ItemInHand.HoldItemHand(prefab, _index);
-                }
-            }
-        }
-        
         private int GetIndexSlot()
         {
             if (Input.GetKey(KeyCode.Alpha1)) _index = 0;
