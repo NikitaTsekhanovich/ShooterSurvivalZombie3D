@@ -366,8 +366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c7515a94132b0945ac4d5678fb55992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 19
-  health: 100
+  _damage: 15
+  _health: 100
   attackRange: 0.9
   animator: {fileID: 5784151578263128455}
   screamZombieSound: {fileID: 2237476113716706025}

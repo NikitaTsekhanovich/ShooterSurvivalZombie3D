@@ -8,11 +8,12 @@ namespace ZombiesEntities
 {
     public abstract class ZombieEssence : MonoBehaviour
     {
-        [SerializeField] private int damage;
-        [SerializeField] private float health;
+        [SerializeField] private int _damage;
+        [SerializeField] private float _health;
         [SerializeField] protected float attackRange;
         [SerializeField] protected Animator animator;
         [SerializeField] protected AudioSource screamZombieSound;
+        
         protected float distance;
         protected NavMeshAgent agent;
         protected bool isAttack;
@@ -20,7 +21,7 @@ namespace ZombiesEntities
         private bool _isDied;
         private float _timer;
         
-        public int Damage => damage;
+        public int Damage => _damage;
         
         private void Start()
         {
@@ -30,7 +31,7 @@ namespace ZombiesEntities
             screamZombieSound.Play();
         }
 
-        public void Update()
+        private void Update()
         {
             Move();
             Attack();
@@ -44,8 +45,8 @@ namespace ZombiesEntities
 
         public void ApplyDamage(float damagePlayer)
         {
-            health -= damagePlayer;
-            if (health <= 0)
+            _health -= damagePlayer;
+            if (_health <= 0)
             {
                 _isDied = true;
             }
@@ -61,6 +62,7 @@ namespace ZombiesEntities
                     agent.transform.position.z);
                 animator.SetBool("isDied", true);
                 agent.speed = 0;
+                
                 _timer += Time.deltaTime;
                 if (_timer >= 5)
                 {
