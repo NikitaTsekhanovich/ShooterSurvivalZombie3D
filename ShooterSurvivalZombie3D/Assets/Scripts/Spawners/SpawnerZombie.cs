@@ -11,14 +11,25 @@ namespace Spawners
         [SerializeField] private Transform spawnPointFirst;
         [SerializeField] private Transform spawnPointSecond;
         [SerializeField] private Transform spawnPointThird;
+        public static int AmountZombies { get; private set; }
+
+        public SpawnerZombie()
+        {
+            AmountZombies = 0;
+        }
+
+        public static void ReduceAmountZombies()
+        {
+            AmountZombies -= 1;
+        }
 
         protected void SpawnZombie()
         {
-            if (WaveLoadManager.AmountZombies == 0)
+            if (AmountZombies == 0)
             {
                 if (WaveLoadManager.GetNumberWave() == 1)
                 {
-                    while (WaveLoadManager.AmountZombies != 4)
+                    while (AmountZombies != 4)
                     {
                         SpawnZombieGirl();
                     }
@@ -26,54 +37,62 @@ namespace Spawners
                 }
                 if (WaveLoadManager.GetNumberWave() == 2)
                 {
-                    while (WaveLoadManager.AmountZombies != 8)
+                    while (AmountZombies != 8)
                     {
                         SpawnZombieGirl();
                     }
-                    SpawnZombieWarrior();
-                    SpawnZombieWarrior();
+                    while (AmountZombies != 10)
+                    {
+                        SpawnZombieWarrior();
+                    }
                     return;
                 }
                 if (WaveLoadManager.GetNumberWave() == 3)
                 {
-                    while (WaveLoadManager.AmountZombies != 4)
+                    while (AmountZombies != 4)
                     {
                         SpawnZombieGirl();
                     }
-                    SpawnZombieWarrior();
-                    SpawnZombieWarrior();
-                    SpawnZombieWarrior();
-                    SpawnZombieParasite();
-                    SpawnZombieParasite();
+                    while (AmountZombies != 8)
+                    {
+                        SpawnZombieWarrior();
+                    }
+                    while (AmountZombies != 10)
+                    {
+                        SpawnZombieParasite();
+                    }
                     return;
                 }
                 if (WaveLoadManager.GetNumberWave() == 4)
                 {
-                    while (WaveLoadManager.AmountZombies != 10)
+                    while (AmountZombies != 10)
                     {
                         SpawnZombieGirl();
                     }
-                    SpawnZombieWarrior();
-                    SpawnZombieWarrior();
-                    SpawnZombieWarrior();
-                    SpawnZombieWarrior();
-                    SpawnZombieParasite();
-                    SpawnZombieParasite();
-                    SpawnZombieParasite();
+                    while (AmountZombies != 14)
+                    {
+                        SpawnZombieWarrior();
+                    }
+                    while (AmountZombies != 17)
+                    {
+                        SpawnZombieParasite();
+                    }
                     return;
                 }
                 if (WaveLoadManager.GetNumberWave() == 5)
                 {
-                    while (WaveLoadManager.AmountZombies != 10)
+                    while (AmountZombies != 10)
                     {
                         SpawnZombieGirl();
                     }
-                    SpawnZombieWarrior();
-                    SpawnZombieWarrior();
-                    SpawnZombieParasite();
-                    SpawnZombieParasite();
-                    SpawnZombieParasite();
-                    SpawnZombieParasite();
+                    while (AmountZombies != 13)
+                    {
+                        SpawnZombieWarrior();
+                    }
+                    while (AmountZombies != 18)
+                    {
+                        SpawnZombieParasite();
+                    }
                     SpawnZombieSkeletonBoss();
                     return;
                 }
@@ -90,7 +109,7 @@ namespace Spawners
                 spawnPoint.position.y,
                 spawnPoint.position.z);
 
-            WaveLoadManager.AmountZombies += 1;
+            AmountZombies += 1;
         }
         
         private void SpawnZombieWarrior()
@@ -103,7 +122,7 @@ namespace Spawners
                 spawnPoint.position.y,
                 spawnPoint.position.z);
 
-            WaveLoadManager.AmountZombies += 1;
+            AmountZombies += 1;
         }
         
         private void SpawnZombieParasite()
@@ -116,7 +135,7 @@ namespace Spawners
                 spawnPoint.position.y,
                 spawnPoint.position.z);
             
-            WaveLoadManager.AmountZombies += 1;
+            AmountZombies += 1;
         }
         
         private void SpawnZombieSkeletonBoss()
@@ -129,7 +148,7 @@ namespace Spawners
                 spawnPoint.position.y,
                 spawnPoint.position.z);
             
-            WaveLoadManager.AmountZombies += 1;
+            AmountZombies += 1;
         }
 
         private Transform GetSpawnPoint()

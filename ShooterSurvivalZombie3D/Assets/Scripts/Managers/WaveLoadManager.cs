@@ -9,17 +9,13 @@ namespace Managers
     {
         [SerializeField] private SpawnerWeaponBox _spawnerWeaponBox;
         private static int _numberWave;
-        private static bool _isStartWave;
+        private bool _isStartWave;
 
         public static bool IsEndGame { get; private set; }
-
-        // сделать полем с приватным сеттером
-        public static int AmountZombies;
 
         public WaveLoadManager()
         {
             _numberWave = 0;
-            AmountZombies = 0;
             _isStartWave = false;
             IsEndGame = false;
         }
@@ -34,7 +30,6 @@ namespace Managers
         private void LoadWave()
         {
             NextWave();
-            
             if (_numberWave == 1 && _isStartWave)
             {
                 SpawnZombie();
