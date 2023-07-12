@@ -9,8 +9,6 @@ namespace Player.InventoryEntities.Healers
 
     public class HealerItem : ItemScriptableObject
     {
-        public float healAmount;
-
         public HealerItem()
         {
             ItemType = ItemType.Healer;

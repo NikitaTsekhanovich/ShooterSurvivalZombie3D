@@ -10,12 +10,18 @@ namespace Managers
         [SerializeField] private SpawnerWeaponBox _spawnerWeaponBox;
         private static int _numberWave;
         private static bool _isStartWave;
+
+        public static bool IsEndGame { get; private set; }
+
+        // сделать полем с приватным сеттером
         public static int AmountZombies;
 
         public WaveLoadManager()
         {
             _numberWave = 0;
+            AmountZombies = 0;
             _isStartWave = false;
+            IsEndGame = false;
         }
 
         private void Update()
@@ -68,6 +74,11 @@ namespace Managers
                 ZombieAliveManager.SendZombieAlive(AmountZombies);
                 _spawnerWeaponBox.SpawnBox(_numberWave);
                 _isStartWave = false;
+            }
+
+            if (_numberWave == 6)
+            {
+                IsEndGame = true;
             }
         }
         

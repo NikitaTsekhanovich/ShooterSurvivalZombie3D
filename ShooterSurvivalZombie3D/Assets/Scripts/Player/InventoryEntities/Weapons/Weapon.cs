@@ -102,12 +102,12 @@ namespace Player.InventoryEntities.Weapons
             var targetPoint = ray.GetPoint(75);
 
             var spawnBulletPosition = spawnBullet.position;
-            var dirWithoutSpred = targetPoint - spawnBulletPosition;
+            var dirWithoutSpread = targetPoint - spawnBulletPosition;
 
             var x = Random.Range(-spread, spread);
             var y = Random.Range(-spread, spread);
 
-            var dirWithSpread = dirWithoutSpred + new Vector3(x, y, 0);
+            var dirWithSpread = dirWithoutSpread + new Vector3(x, y, 0);
 
             var currentBullet = Instantiate(
                 bullet,
@@ -115,7 +115,7 @@ namespace Player.InventoryEntities.Weapons
                 Quaternion.identity
                 );
 
-            currentBullet.transform.forward = dirWithoutSpred.normalized;
+            currentBullet.transform.forward = dirWithoutSpread.normalized;
 
             currentBullet.GetComponent<Rigidbody>()
                 .AddForce(dirWithSpread.normalized * shootForce, ForceMode.Impulse);

@@ -1,5 +1,4 @@
 using Managers;
-using Player.Indicators;
 using Player.MainPlayer;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ namespace ZombiesEntities
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                PlayerHealthManager.SendPlayerApplyDamage(
+                PlayerHealth.SendPlayerApplyDamage(
                     gameObject.GetComponentInParent<ZombieEssence>().Damage);
             }
         }

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace WeaponBoxes
 {
     public class SpawnerWeaponBox : WeaponBoxesEntities

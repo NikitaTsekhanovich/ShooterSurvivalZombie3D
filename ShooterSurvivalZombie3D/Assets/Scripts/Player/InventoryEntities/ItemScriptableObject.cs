@@ -8,8 +8,7 @@ namespace Player.InventoryEntities
         Healer,
         AutomaticWeapon,
         NotAutomaticWeapon,
-        Ammo,
-        Void
+        Ammo
     }
     public class ItemScriptableObject : ScriptableObject
     {

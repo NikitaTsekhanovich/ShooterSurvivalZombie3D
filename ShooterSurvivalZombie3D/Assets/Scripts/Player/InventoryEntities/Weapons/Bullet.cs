@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using ZombiesEntities;
 
@@ -17,16 +16,11 @@ namespace Player.InventoryEntities.Weapons
         {
             if (collision.gameObject.CompareTag("Zombie"))
             {
-                collision.gameObject.GetComponent<ZombieEssence>()
-                    .ApplyDamage(Inventory.GetItemInHand()
-                        .GetComponent<Weapon>().Damage);
+                collision.gameObject.GetComponent<ZombieEssence>().ApplyDamage
+                    (Inventory.GetItemInHand().GetComponent<Weapon>().Damage);
             }
             
-            if (!collision.gameObject.CompareTag("Bullet") && 
-                !collision.gameObject.CompareTag("Player"))
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
 }

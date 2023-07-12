@@ -1,4 +1,3 @@
-using System;
 using JetBrains.Annotations;
 using Player.InventoryEntities;
 using Player.InventoryEntities.Weapons;

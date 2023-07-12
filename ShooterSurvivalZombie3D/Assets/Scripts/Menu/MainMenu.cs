@@ -7,7 +7,7 @@ namespace Menu
     {
         public void PlayGame()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            LoadScreen.SwitchToScene("MainScene");
         }
 
         public void ExitGame()

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Animations;
 using Player.InventoryEntities.AmmoWeapons;
+using Player.InventoryEntities.Animation;
 using Player.InventoryEntities.Weapons;
 using Player.MainPlayer;
 using UnityEditor;
@@ -150,18 +150,13 @@ namespace Player.InventoryEntities
 
             _itemInHand = ItemInHand.ActiveItemInHand(_index);
 
-            AnimationInventoryManager.DoAnimationSlots(slots, _index);
+            AnimationSlots.DoAnimationSlots(slots, _index);
             return _index;
         }
         
         public static GameObject GetItemInHand()
         {
             return _itemInHand == null ? null : _itemInHand;
-        }
-        
-        public static ItemType GetTypeItemInHand()
-        {
-            return _itemInHand == null ? ItemType.Void : _itemInHand.GetComponent<Item>().item.ItemType;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace WeaponBoxes
         {
             if (other.CompareTag("Player"))
             {
-                _animator.SetBool("IsOpen", true);
+                AnimatorWeaponBox.OpenWeaponBox(_animator);
                 _light.gameObject.SetActive(false);
             }
         }
@@ -21,7 +21,7 @@ namespace WeaponBoxes
         {
             if (other.CompareTag("Player"))
             {
-                _animator.SetBool("IsOpen", false);
+                AnimatorWeaponBox.CloseWeaponBox(_animator);
             }
         }
     }
