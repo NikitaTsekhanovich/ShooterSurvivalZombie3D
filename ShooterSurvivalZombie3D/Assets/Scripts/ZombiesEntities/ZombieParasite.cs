@@ -6,10 +6,10 @@ namespace ZombiesEntities
     {
         protected override void Move()
         {
-            _agent.SetDestination(playerTransform.position);
+            agent.SetDestination(playerTransform.position);
 
-            _distance = Vector3.Distance(transform.position, playerTransform.position);
-            if (_distance > attackRange)
+            distance = Vector3.Distance(transform.position, playerTransform.position);
+            if (distance > attackRange)
             {
                 transform.LookAt(playerTransform);
                 animator.SetBool("isWalk", true);
@@ -17,24 +17,24 @@ namespace ZombiesEntities
             else
             {
                 animator.SetBool("isWalk", false);
-                _isAttack = true;
+                isAttack = true;
             }
         }
         
         protected override void Attack()
         {
-            if (_isAttack)
+            if (isAttack)
             {
                 transform.LookAt(playerTransform);
 
-                if (_distance <= attackRange)
+                if (distance <= attackRange)
                 {
                     animator.SetBool("isAttacking", true);
                 }
                 else
                 {
                     animator.SetBool("isAttacking", false);
-                    _isAttack = false;
+                    isAttack = false;
                 }
             }
         }
