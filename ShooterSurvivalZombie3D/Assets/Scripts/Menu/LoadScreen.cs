@@ -43,8 +43,8 @@ namespace Menu
             {
                 _loadingPercentage.text = Mathf.RoundToInt(_loadingSceneOperation.progress * 100) + "%";
                 _loadingProgressBar.fillAmount = _loadingSceneOperation.progress;
-                _loadingProgressBar.fillAmount = Mathf.Lerp(_loadingProgressBar.fillAmount, _loadingSceneOperation.progress,
-                    Time.deltaTime * 5);
+                _loadingProgressBar.fillAmount = Mathf.Lerp(_loadingProgressBar.fillAmount, 
+                    _loadingSceneOperation.progress, Time.deltaTime * 5);
             }
         }
 
