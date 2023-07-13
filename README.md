@@ -21,7 +21,6 @@
 ![image](https://github.com/NikitaTsekhanovich/ShooterSurvivalZombie3D/assets/92225631/ec90bfc3-4dea-475c-a2e7-0d7d0b6038a9)
 # Дома с патронами.
 ![image](https://github.com/NikitaTsekhanovich/ShooterSurvivalZombie3D/assets/92225631/ea55d6d9-4ac7-4c25-ae52-04a4549174a9)
-![image](https://github.com/NikitaTsekhanovich/ShooterSurvivalZombie3D/assets/92225631/3f6f2a90-defe-4275-9d5f-14f6d56b2071)
 # Разные виды зомби.
 У каждого зомби свои характеристики (урон, здоровье, скорость).
 ![image](https://github.com/NikitaTsekhanovich/ShooterSurvivalZombie3D/assets/92225631/e528f4fd-165f-4153-a5e9-db0b8c22923a)
